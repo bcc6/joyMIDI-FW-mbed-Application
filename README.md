@@ -1,15 +1,10 @@
+# Run mode
+Configure `run_mode` in `mbed_app.json`, this will generate a macro `MBED_CONF_APP_RUN_MODE`
 
-# run_mode in mbed_app.json (MBED_CONF_APP_RUN_MODE)
+Run_mode  | MIDI-IN_serial  |  Debug_serial  |  Test_functions |      Jumper
+----------|-----------------|----------------|-----------------|----------------------
+0: Normal |       V         |       X        |        X        |       Short
+1: Debug  |       X         |       V        |        X        |       Open
+2: Test   |       X         |       V        |        V        |       Open
 
-            | MIDI-IN_serial  |  Debug_serial  |  Test_functions |
-            ------------------------------------------------------
-  0: Normal |       V         |       X        |        X        |
-  1: Debug  |       X         |       V        |        X        |
-  2: Test   |       X         |       V        |        V        |
-
-
-            | MIDI-IN_path    |
-            -------------------
-  0: Normal |       Short     |
-  1: Debug  |       Open      |
-  2: Test   |       Open      |
+Jumper: MIDI-IN_path
