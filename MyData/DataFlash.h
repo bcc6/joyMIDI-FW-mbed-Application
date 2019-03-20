@@ -4,8 +4,8 @@
 #include "mbed.h"
 #include "my_debug.h"
 
-#define DATAFLASH_PAGE_SIZE   2048                            // Page size 2KB
-#define DATAFLASH_START_ADDR  (0x20000 - DATAFLASH_PAGE_SIZE) // Use the last page
+#define DATAFLASH_PAGE_SIZE   2048                                  // Page size 2KB
+#define DATAFLASH_START_ADDR  (MBED_ROM_SIZE - DATAFLASH_PAGE_SIZE) // Use the last page
 
 #define DATAFLASH_ALL_DATA_OffSET     0
 #define DATAFLASH_ALL_DATA_SIZE       2048
@@ -41,9 +41,9 @@ class DataFlash : public FlashIAP {
   int readImageIconsN(uint8_t *buf, uint8_t n);
 
   int readParamMidiKeyboard(uint8_t *buf);
-  
+
   int readParamMidiPad(uint8_t *buf);
-  
+
   int readParamMidiDj(uint8_t *buf);
 
   int readParamHidJoystick(uint8_t *buf);

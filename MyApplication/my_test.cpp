@@ -191,25 +191,25 @@ void console_usbjoystick(USBJoystick *uj) {
 
   uint16_t i = 0;
   int16_t throttle = 0;
-  int16_t rudder = 0;    
+  int16_t rudder = 0;
   int16_t x = 0;
   int16_t y = 0;
   int32_t radius = 120;
   int32_t angle = 0;
-  uint32_t buttons = 0;    
-  uint8_t  hat = 0;    
+  uint32_t buttons = 0;
+  uint8_t  hat = 0;
 
   while (1) {
       // Basic Joystick
       throttle = (i >> 8) & 0xFF; // value -128 .. 127
-      rudder   = (i >> 8) & 0xFF; // value -128 .. 127        
-      buttons  = (i >> 8) & 0x0F; // value    0 .. 15, one bit per button     
-      hat      = (i >> 8) & 0x07; // value    0 .. 7 or 8 for neutral         
-      i++;        
-      
+      rudder   = (i >> 8) & 0xFF; // value -128 .. 127
+      buttons  = (i >> 8) & 0x0F; // value    0 .. 15, one bit per button
+      hat      = (i >> 8) & 0x07; // value    0 .. 7 or 8 for neutral
+      i++;
+
       x = cos((double)angle*3.14/180.0)*radius;  // value -128 .. 127
       y = sin((double)angle*3.14/180.0)*radius;  // value -128 .. 127
-      angle += 3;        
+      angle += 3;
 
       uj->update(throttle, rudder, x, y, buttons, hat);
 
