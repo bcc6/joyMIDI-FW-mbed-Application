@@ -36,6 +36,14 @@ static void debug_show_param(MidiParam *p) {
 }
 #endif
 
+// // extern SystemReport *sys_state;
+// static void debug_midi_stats() {
+//   // sys_state->report_heap_stats();
+//   // sys_state->report_thread_stats();
+//   // DEBUG_OUT("\n");
+//   DEBUG_OUT("oz123\n");
+// }
+
 static int load_user_parameters(AppCtrl_t &ac, MidiParam *param) {
   uint8_t *buf;
   buf = new uint8_t[256];
@@ -92,5 +100,6 @@ void app_midi(AppCtrl_t &ac, int mode) {
   /* Setup MIDI-out */
   EventQueue *eq = mbed_event_queue();                  // Request the shared queue
   eq->call_every(10, midi_io_out, ac, param, manager);  // Call every 10ms
+  // eq->call_every(5000, debug_midi_stats);               // Call every 5000ms
   eq->dispatch_forever();
 }

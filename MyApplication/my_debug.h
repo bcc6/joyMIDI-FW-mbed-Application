@@ -14,8 +14,6 @@
     #define PRESS_ANY_KEY_TO_BREAK_LOOP()   do{}while(0)
     #define ASSERT(expr)                    do{}while(0)
     #define HEX_DUMP(desc, addr, len)       do{}while(0)
-    #define STATS_START(sample_rate_ms)     do{}while(0)
-    #define STATS_REPORT()                  do{}while(0)
 
 #elif   (MBED_CONF_APP_RUN_MODE == 1) || (MBED_CONF_APP_RUN_MODE == 2)
 
@@ -34,14 +32,20 @@
         } \
     }
     #define HEX_DUMP(desc, addr, len)       hex_dump(desc, addr, len)
-    #define STATS_START(sample_rate_ms)     SystemReport sys_state(sample_rate_ms)
-    #define STATS_REPORT()                  sys_state.report_state()
 
 #endif
 
 
 
-// NOTE: SystemReport class is copied and modified from stat_report.h
+// NOTE: SystemReport class is copied and modified from mbed's stat_report.h
+//       Add below configuration option to enable.
+//
+//      "platform.all-stats-enabled": true
+//      "platform.heap-stats-enabled": true,
+//      "platform.stack-stats-enabled": true
+//      "platform.thread-stats-enabled": true
+//      "platform.sys-stats-enabled": true
+//      "platform.cpu-stats-enabled": true
 
 /**
  *  System Reporting library. Provides runtime information on device:
@@ -71,7 +75,7 @@ public:
         // Collect the static system information
         mbed_stats_sys_get(&sys_stats);
 
-        DEBUG_OUT("================ SYSTEM INFO  ================\n");
+        DEBUG_OUT("==== SYSTEM INFO ====\n");
         DEBUG_OUT("Mbed OS Version: %ld \n", sys_stats.os_version);
         DEBUG_OUT("CPU ID: 0x%lx \n", sys_stats.cpu_id);
         DEBUG_OUT("Compiler ID: %d \n", sys_stats.compiler_id);
@@ -114,7 +118,7 @@ public:
     {
         static uint64_t prev_idle_time = 0;
 
-        DEBUG_OUT("======== CPU STATS ========\n");
+        DEBUG_OUT("==== CPU STATS ====\n");
 
         // Collect and print cpu stats
         mbed_stats_cpu_get(&cpu_stats);
@@ -134,7 +138,7 @@ public:
      */
     void report_heap_stats(void)
     {
-        DEBUG_OUT("======== HEAP STATS ========\n");
+        DEBUG_OUT("==== HEAP STATS ====\n");
 
         // Collect and print heap stats
         mbed_stats_heap_get(&heap_stats);
@@ -148,7 +152,7 @@ public:
      */
     void report_thread_stats(void)
     {
-        DEBUG_OUT("======== THREAD STATS ========\n");
+        DEBUG_OUT("==== THREAD STATS ====\n");
 
         // Collect and print running thread stats
         int count = mbed_stats_thread_get_each(thread_stats, max_thread_count);

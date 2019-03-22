@@ -56,6 +56,8 @@ I2C2          i2c(PE_0, PC_4);
 BMA253        accel(i2c, (0x18 << 1));
 SSD1306       oled(i2c, 0x78);
 
+// SystemReport *sys_state;  // for debug
+
 //=================================================================================
 // Event
 
@@ -86,8 +88,8 @@ int main(void) {
   DEBUG_OUT("mbed-os-%d.%d.%d\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
   DEBUG_OUT("fw-%d.%d\n\n", MBED_CONF_APP_FIRMWARE_VERSION_MAJOR, MBED_CONF_APP_FIRMWARE_VERSION_MINOR);
 
-  STATS_START(5000);
-  STATS_REPORT();
+  // sys_state = new SystemReport(5000);
+  // sys_state->report_state();
 
   /* Test functions */
 #if (MBED_CONF_APP_RUN_MODE == 2)

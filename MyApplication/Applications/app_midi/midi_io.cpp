@@ -1286,7 +1286,7 @@ void midi_io_out(AppCtrl_t &ac, MidiParam *param, MidiManager *manager) {
       uint8_t msg = (param->acc_assign[i].msg_ch & 0xF0);
       uint8_t an = i;
       uint8_t av = 0;
-      
+
       switch (i) {
         case 0: av = (x < 0) ? (-x * 127) : 0;  break;
         case 1: av = (x > 0) ? ( x * 127) : 0;  break;
@@ -1315,8 +1315,10 @@ void midi_io_out(AppCtrl_t &ac, MidiParam *param, MidiManager *manager) {
     }
   }
 
+#if (MBED_CONF_APP_RUN_MODE == 0)
   /* Serial MIDI-IN Parser */
   ac.serialmidi->parseRxMessageRoutine();
+#endif
 
   /* Update OLED display and LEDs */
   midi_ui_update(ac, param, keys);
