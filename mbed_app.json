@@ -19,13 +19,12 @@
     },
     "target_overrides": {
         "*": {
-            "platform.stdio-flush-at-exit": false,
             "events.shared-dispatch-from-application": true,
             "platform.all-stats-enabled": null
         },
         "NUMAKER_PFM_M453": {
             "target.device_name": "M452LE6AE",
-            "target.device_has_remove": ["CAN"]
+            "target.device_has_remove": ["RTC", "CAN"]
         }
     },
     "macros": []

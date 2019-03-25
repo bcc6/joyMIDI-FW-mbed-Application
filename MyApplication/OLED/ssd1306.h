@@ -280,6 +280,9 @@ class SSD1306 {
   int command(char c);
   int data(char d);
   int command_data(char c, char c_or_d, char lastitem);
+
+  static EventFlags  event_flags;
+  static void xfr_done(int e) { event_flags.set(0x1); }
 };
 
 #endif

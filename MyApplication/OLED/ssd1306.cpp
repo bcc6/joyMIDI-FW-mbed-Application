@@ -1,7 +1,11 @@
 #include "ssd1306.h"
 #include "mbed.h"
 
-/* 
+
+EventFlags  SSD1306::event_flags;
+
+
+/*
  * 8x8 charset(256 ASCII), Code page 437
  * For the graphic can refer to http://www.deathwombat.com/extendedascii.html  @ CGA(8x8) Columns(16)
  */
@@ -364,7 +368,10 @@ void SSD1306::redraw_partial(char start_page, char start_col, char num_page, cha
     xb[5] = SSD1306_SETHIGHCOLUMN | ((start_col & 0xF0) >> 4);
     xb[6] = SSD1306_IS_DATA | SSD1306_IS_LAST;                  // All of the following transfer information are data bytes only
     memcpy(&xb[7], &fb[i * 128 + start_col], num_col);
-    bus->write(ssd1306_i2c_addr, xb, (7 + num_col), 0);
+    // bus->write(ssd1306_i2c_addr, xb, (7 + num_col), 0);
+
+    bus->transfer(ssd1306_i2c_addr, xb, (7 + num_col), 0, 0, xfr_done, I2C_EVENT_ALL);
+    event_flags.wait_all(0x1);   // OS non-block wait
   }
 }
 

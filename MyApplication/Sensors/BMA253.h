@@ -122,6 +122,9 @@ class BMA253 {
 
   void _reg_write(char reg, char val);
   void _reg_read(char reg, char *val, int len);
+
+  static EventFlags  event_flags;
+  static void xfr_done(int e) { event_flags.set(0x1); }
 };
 
 #endif

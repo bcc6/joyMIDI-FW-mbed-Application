@@ -1,5 +1,9 @@
 #include "BMA253.h"
 
+
+EventFlags  BMA253::event_flags;
+
+
 BMA253::BMA253(I2C &i2c, int i2c_addr)
     : _i2c(i2c),
       _i2c_addr(i2c_addr),
@@ -58,7 +62,7 @@ void BMA253::get_vector(float *xyz) {
   raw_xyz[0] -= _calib_xyz[0];
   raw_xyz[1] -= _calib_xyz[1];
   raw_xyz[2] -= _calib_xyz[2];
-  
+
   /* Convert raw to vector */
   xyz[0] = (float)raw_xyz[0] / (float)_sensitivity;
   xyz[1] = (float)raw_xyz[1] / (float)_sensitivity;
@@ -79,6 +83,9 @@ void BMA253::_reg_write(char reg, char val) {
 }
 
 void BMA253::_reg_read(char reg, char *val, int len) {
-  _i2c.write(_i2c_addr, &reg, 1, 0);
-  _i2c.read(_i2c_addr, val, len);
+  // _i2c.write(_i2c_addr, &reg, 1, 0);
+  // _i2c.read(_i2c_addr, val, len);
+
+  _i2c.transfer(_i2c_addr, &reg, 1, val, len, xfr_done, I2C_EVENT_ALL);
+  event_flags.wait_all(0x1);   // OS non-block wait
 }

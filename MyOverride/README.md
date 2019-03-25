@@ -7,3 +7,6 @@
 
 - \mbed-os\targets\TARGET_NUVOTON\TARGET_M451\analogin_api.c
     Speed down the ADC clock.
+
+- \mbed-os\tools\profiles
+    Replace gnu++98 with gnu++11.
