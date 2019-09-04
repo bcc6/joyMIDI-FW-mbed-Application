@@ -6,7 +6,7 @@
         },
         "firmware_version_minor": {
             "help": "0 ~ 255",
-            "value": 4
+            "value": 5
         },
         "welcome_string": {
             "help": "The string printed on the display on start-up",

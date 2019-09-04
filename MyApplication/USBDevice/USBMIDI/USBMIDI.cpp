@@ -394,10 +394,10 @@ const uint8_t * USBMIDI::stringIinterfaceDesc() {
 
 const uint8_t * USBMIDI::stringIproductDesc() {
     static uint8_t stringIproductDescriptor[] = {
-        0x22,                                                   //bLength
+        0x24,                                                   //bLength
         STRING_DESCRIPTOR,                                      //bDescriptorType 0x03
-        'G',0,'i',0,'t',0,'M',0,'u',0,'s',0,'i',0,'c',0,' ',0,
-        'j',0,'o',0,'y',0,'M',0,'I',0,'D',0,'I',0,              //bString iProduct - GitMusic joyMIDI
+        'S',0,'o',0,'u',0,'n',0,'d',0,'l',0,'e',0,'s',0,'s',0,' ',0,
+        'j',0,'o',0,'y',0,'M',0,'I',0,'D',0,'I',0,              //bString iProduct - Soundless joyMIDI
     };
     return stringIproductDescriptor;
 }
